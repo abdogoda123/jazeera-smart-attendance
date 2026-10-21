@@ -52,15 +52,15 @@
         <input type="password" id="login-password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0088cc] text-sm bg-slate-50/50">
       </div>
 
-      <button onclick="loginUser()" class="w-full bg-[#0088cc] hover:bg-[#0077bb] text-white py-3.5 rounded-xl font-bold shadow-lg transition text-sm">
+      <button type="button" id="btn-do-login" class="w-full bg-[#0088cc] hover:bg-[#0077bb] text-white py-3.5 rounded-xl font-bold shadow-lg transition text-sm">
         تسجيل الدخول 🚀
       </button>
 
       <div class="text-center pt-3 border-t mt-4 space-y-2">
         <p class="text-xs text-slate-600">ليس لديك حساب؟ 
-          <button type="button" onclick="toggleRegisterMode(true)" class="text-[#0088cc] font-bold hover:underline">اضغط هنا لإنشاء حسابك الجديد</button>
+          <a href="#register" id="link-to-register" class="text-[#0088cc] font-bold hover:underline">اضغط هنا لإنشاء حسابك الجديد</a>
         </p>
-        <button type="button" onclick="resetDeviceData()" class="text-[11px] text-red-500 hover:underline block mx-auto">🗑️ مسح الذاكرة المسجلة (إعادة ضبط)</button>
+        <button type="button" id="btn-reset-data" class="text-[11px] text-red-500 hover:underline block mx-auto">🗑️ مسح الذاكرة المسجلة (إعادة ضبط)</button>
       </div>
     </div>
   </section>
@@ -76,7 +76,7 @@
     <div class="space-y-3">
       <div>
         <label class="block text-xs font-bold text-slate-700 mb-1">حدد صفتك</label>
-        <select id="reg-role" onchange="toggleRoleFields()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0088cc] text-xs bg-slate-50/50">
+        <select id="reg-role" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0088cc] text-xs bg-slate-50/50">
           <option value="student">طالب (تسجيل حضور)</option>
           <option value="doctor">عضو هيئة تدريس / دكتور</option>
         </select>
@@ -124,13 +124,13 @@
         <input type="password" id="reg-password" placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0088cc] text-xs bg-slate-50/50">
       </div>
 
-      <button type="button" onclick="registerUser()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition text-xs">
+      <button type="button" id="btn-do-register" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition text-xs">
         إنشاء الحساب وقفل الجهاز 🔒
       </button>
 
       <div class="text-center pt-2 border-t mt-3">
         <p class="text-xs text-slate-600">لديك حساب بالفعل؟ 
-          <button type="button" onclick="toggleRegisterMode(false)" class="text-[#0088cc] font-bold hover:underline">تسجيل الدخول</button>
+          <a href="#login" id="link-to-login" class="text-[#0088cc] font-bold hover:underline">تسجيل الدخول</a>
         </p>
       </div>
     </div>
@@ -139,9 +139,9 @@
   <!-- DASHBOARD CONTAINER -->
   <div id="panel-dashboard" class="hidden">
     <div class="max-w-4xl mx-auto flex justify-center gap-2 mb-6">
-      <button onclick="switchView('student')" id="tab-student" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-[#0088cc] text-white shadow-md transition">صفحة الطالب</button>
-      <button onclick="switchView('doctor')" id="tab-doctor" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white text-slate-700 shadow hover:bg-slate-50 transition">شاشة الدكتور / المعيد</button>
-      <button onclick="logoutUser()" class="px-4 py-2.5 rounded-xl font-bold text-sm bg-red-100 text-red-600 shadow hover:bg-red-200 transition">خروج</button>
+      <button type="button" id="tab-student" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-[#0088cc] text-white shadow-md transition">صفحة الطالب</button>
+      <button type="button" id="tab-doctor" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-white text-slate-700 shadow hover:bg-slate-50 transition">شاشة الدكتور / المعيد</button>
+      <button type="button" id="btn-logout" class="px-4 py-2.5 rounded-xl font-bold text-sm bg-red-100 text-red-600 shadow hover:bg-red-200 transition">خروج</button>
     </div>
 
     <!-- STUDENT VIEW -->
@@ -179,15 +179,15 @@
         <div id="scanner-container" class="hidden border-2 border-dashed border-[#0088cc] rounded-2xl p-4 bg-slate-50 text-center">
           <p class="text-xs font-bold text-slate-700 mb-2">📷 توجيه الكاميرا لمسح كود المحاضرة:</p>
           <div id="reader" class="overflow-hidden rounded-xl"></div>
-          <button onclick="stopCamera()" class="mt-3 px-4 py-1.5 bg-red-100 text-red-600 rounded-lg text-xs font-bold">إغلاق الكاميرا ✖</button>
+          <button type="button" id="btn-close-camera" class="mt-3 px-4 py-1.5 bg-red-100 text-red-600 rounded-lg text-xs font-bold">إغلاق الكاميرا ✖</button>
         </div>
 
         <div class="pt-2 space-y-3">
-          <button onclick="startCamera()" id="btn-open-camera" class="w-full bg-[#0088cc] hover:bg-[#0077bb] text-white py-3.5 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition text-sm">
+          <button type="button" id="btn-open-camera" class="w-full bg-[#0088cc] hover:bg-[#0077bb] text-white py-3.5 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition text-sm">
             <span>📷</span> فتح الكاميرا ومسح الـ QR Code الخاص بالمحاضرة
           </button>
           
-          <button onclick="downloadPDFReport()" class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-bold shadow flex items-center justify-center gap-2 transition text-xs">
+          <button type="button" id="btn-download-pdf" class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-bold shadow flex items-center justify-center gap-2 transition text-xs">
             <span>📄</span> تحميل شهادة الحضور الرسمية (PDF)
           </button>
         </div>
@@ -227,7 +227,7 @@
       </div>
 
       <div class="space-y-3 border-t pt-4">
-        <button onclick="exportExcel()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow flex items-center justify-center gap-2 transition text-sm">
+        <button type="button" id="btn-export-excel" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow flex items-center justify-center gap-2 transition text-sm">
           <span>📊</span> تصدير كشف الحضور الرسمي (Excel / CSV)
         </button>
 
@@ -235,7 +235,7 @@
           <label class="block text-xs font-bold text-slate-700">📱 إرسال كشف الحضور المباشر عبر واتساب (WhatsApp):</label>
           <div class="flex gap-2">
             <input type="text" id="whatsapp-num" placeholder="رقم الواتساب (مثال: 010xxxxxxxx)" class="flex-1 px-3 py-2 border rounded-xl text-xs bg-white">
-            <button onclick="sendToWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1 shadow">
+            <button type="button" id="btn-send-wa" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1 shadow">
               <span>💬</span> إرسال
             </button>
           </div>
@@ -263,17 +263,76 @@
   </div>
 
   <script>
-    function toggleRegisterMode(showRegister) {
+    document.addEventListener('DOMContentLoaded', function() {
       const loginPanel = document.getElementById('panel-login');
       const regPanel = document.getElementById('panel-register');
-      if (showRegister) {
-        loginPanel.classList.add('hidden');
-        regPanel.classList.remove('hidden');
-      } else {
-        regPanel.classList.add('hidden');
-        loginPanel.classList.remove('hidden');
+      const linkToReg = document.getElementById('link-to-register');
+      const linkToLogin = document.getElementById('link-to-login');
+      const regRole = document.getElementById('reg-role');
+      const studentExtraFields = document.getElementById('student-extra-fields');
+      const fieldSubject = document.getElementById('field-subject');
+
+      if(linkToReg) {
+        linkToReg.addEventListener('click', function(e) {
+          e.preventDefault();
+          loginPanel.classList.add('hidden');
+          regPanel.classList.remove('hidden');
+        });
       }
-    }
+
+      if(linkToLogin) {
+        linkToLogin.addEventListener('click', function(e) {
+          e.preventDefault();
+          regPanel.classList.add('hidden');
+          loginPanel.classList.remove('hidden');
+        });
+      }
+
+      if(regRole) {
+        regRole.addEventListener('change', function() {
+          if(this.value === 'doctor') {
+            studentExtraFields.classList.add('hidden');
+            fieldSubject.classList.remove('hidden');
+          } else {
+            studentExtraFields.classList.remove('hidden');
+            fieldSubject.classList.add('hidden');
+          }
+        });
+      }
+
+      const btnDoLogin = document.getElementById('btn-do-login');
+      if(btnDoLogin) btnDoLogin.addEventListener('click', loginUser);
+
+      const btnDoRegister = document.getElementById('btn-do-register');
+      if(btnDoRegister) btnDoRegister.addEventListener('click', registerUser);
+
+      const btnResetData = document.getElementById('btn-reset-data');
+      if(btnResetData) btnResetData.addEventListener('click', resetDeviceData);
+
+      const tabStudent = document.getElementById('tab-student');
+      if(tabStudent) tabStudent.addEventListener('click', () => switchView('student'));
+
+      const tabDoctor = document.getElementById('tab-doctor');
+      if(tabDoctor) tabDoctor.addEventListener('click', () => switchView('doctor'));
+
+      const btnLogout = document.getElementById('btn-logout');
+      if(btnLogout) btnLogout.addEventListener('click', logoutUser);
+
+      const btnOpenCamera = document.getElementById('btn-open-camera');
+      if(btnOpenCamera) btnOpenCamera.addEventListener('click', startCamera);
+
+      const btnCloseCamera = document.getElementById('btn-close-camera');
+      if(btnCloseCamera) btnCloseCamera.addEventListener('click', stopCamera);
+
+      const btnDownloadPdf = document.getElementById('btn-download-pdf');
+      if(btnDownloadPdf) btnDownloadPdf.addEventListener('click', downloadPDFReport);
+
+      const btnExportExcel = document.getElementById('btn-export-excel');
+      if(btnExportExcel) btnExportExcel.addEventListener('click', exportExcel);
+
+      const btnSendWa = document.getElementById('btn-send-wa');
+      if(btnSendWa) btnSendWa.addEventListener('click', sendToWhatsApp);
+    });
 
     function getDeviceId() {
       let devId = localStorage.getItem('egi_device_fingerprint');
@@ -289,7 +348,6 @@
     let userRole = null;
     let qrGenerator = null;
     let html5QrCode = null;
-
     let attendanceList = [];
 
     function resetDeviceData() {
@@ -297,19 +355,6 @@
         localStorage.clear();
         alert("تم مسح الذاكرة بنجاح. أعد تحميل الصفحة.");
         location.reload();
-      }
-    }
-
-    function toggleRoleFields() {
-      const role = document.getElementById('reg-role').value;
-      const studentFields = document.getElementById('student-extra-fields');
-      const doctorFields = document.getElementById('field-subject');
-      if (role === 'doctor') {
-        studentFields.classList.add('hidden');
-        doctorFields.classList.remove('hidden');
-      } else {
-        studentFields.classList.remove('hidden');
-        doctorFields.classList.add('hidden');
       }
     }
 
@@ -323,77 +368,16 @@
       }
 
       const registeredData = localStorage.getItem('egi_acc_' + u);
-
       if (!registeredData) {
         alert("❌ هذا الكود غير مسجل! يرجى الضغط على رابط إنشاء حساب جديد أولاً.");
         return;
       }
 
       const accInfo = JSON.parse(registeredData);
-
       if (accInfo.password !== p) {
         alert("❌ كلمة المرور غير صحيحة!");
         return;
       }
 
       if (accInfo.deviceId !== currentDeviceId) {
-        alert("🔒 حظر أمني:\nهذا الحساب مقترن بجهاز هاتف آخر ولا يمكن فتحه إلا من الجهاز الأساسي المسجل به!");
-        return;
-      }
-
-      currentUser = accInfo;
-      userRole = accInfo.role;
-      setupDashboard();
-    }
-
-    function registerUser() {
-      const role = document.getElementById('reg-role').value;
-      const name = document.getElementById('reg-fullname').value.trim();
-      const u = document.getElementById('reg-username').value.trim();
-      const p = document.getElementById('reg-password').value.trim();
-      const dept = document.getElementById('reg-dept').value;
-      const level = document.getElementById('reg-level').value;
-      const subject = document.getElementById('reg-subject').value.trim();
-
-      if (!name || !u || !p) {
-        alert("يرجى ملء جميع الحقول المطلوبة.");
-        return;
-      }
-
-      if (role === 'doctor' && !subject) {
-        alert("يرجى إدخال اسم المادة الدراسية.");
-        return;
-      }
-
-      if (localStorage.getItem('egi_acc_' + u)) {
-        alert("❌ هذا الكود الأكاديمي مسجل مسبقاً لشخص آخر!");
-        return;
-      }
-
-      const newAccount = {
-        id: u,
-        password: p,
-        name: name,
-        role: role,
-        dept: dept || "هندسة الاتصالات والالكترونيات",
-        level: level || "المستوى الثالث",
-        subject: subject || "اتصالات رقمية",
-        deviceId: currentDeviceId
-      };
-
-      localStorage.setItem('egi_acc_' + u, JSON.stringify(newAccount));
-      alert("🎉 تم إنشاء حسابك بنجاح وقفل جهازه يا بشمهندس " + name + "!");
-      
-      currentUser = newAccount;
-      userRole = role;
-      setupDashboard();
-    }
-
-    function setupDashboard() {
-      document.getElementById('panel-login').classList.add('hidden');
-      document.getElementById('panel-register').classList.add('hidden');
-      document.getElementById('panel-dashboard').classList.remove('hidden');
-
-      if (userRole === 'doctor') {
-        document.getElementById('user-display').innerText = currentUser.name + " (" + currentUser.subject + ")";
-        document.getElementById('doc-fullname').innerText = "
+        alert("🔒 حظر أمني:\nهذا الحساب مقترن بجهاز هاتف
