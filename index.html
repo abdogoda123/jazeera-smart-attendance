@@ -58,7 +58,7 @@
 
       <div class="text-center pt-3 border-t mt-4 space-y-2">
         <p class="text-xs text-slate-600">ليس لديك حساب؟ 
-          <a href="#register" id="link-to-register" class="text-[#0088cc] font-bold hover:underline">اضغط هنا لإنشاء حسابك الجديد</a>
+          <button type="button" onclick="showRegisterPanel()" class="text-[#0088cc] font-bold hover:underline cursor-pointer">اضغط هنا لإنشاء حسابك الجديد</button>
         </p>
         <button type="button" id="btn-reset-data" class="text-[11px] text-red-500 hover:underline block mx-auto">🗑️ مسح الذاكرة المسجلة (إعادة ضبط)</button>
       </div>
@@ -130,7 +130,7 @@
 
       <div class="text-center pt-2 border-t mt-3">
         <p class="text-xs text-slate-600">لديك حساب بالفعل؟ 
-          <a href="#login" id="link-to-login" class="text-[#0088cc] font-bold hover:underline">تسجيل الدخول</a>
+          <button type="button" onclick="showLoginPanel()" class="text-[#0088cc] font-bold hover:underline cursor-pointer">تسجيل الدخول</button>
         </p>
       </div>
     </div>
@@ -263,30 +263,20 @@
   </div>
 
   <script>
+    function showRegisterPanel() {
+      document.getElementById('panel-login').classList.add('hidden');
+      document.getElementById('panel-register').classList.remove('hidden');
+    }
+
+    function showLoginPanel() {
+      document.getElementById('panel-register').classList.add('hidden');
+      document.getElementById('panel-login').classList.remove('hidden');
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      const loginPanel = document.getElementById('panel-login');
-      const regPanel = document.getElementById('panel-register');
-      const linkToReg = document.getElementById('link-to-register');
-      const linkToLogin = document.getElementById('link-to-login');
       const regRole = document.getElementById('reg-role');
       const studentExtraFields = document.getElementById('student-extra-fields');
       const fieldSubject = document.getElementById('field-subject');
-
-      if(linkToReg) {
-        linkToReg.addEventListener('click', function(e) {
-          e.preventDefault();
-          loginPanel.classList.add('hidden');
-          regPanel.classList.remove('hidden');
-        });
-      }
-
-      if(linkToLogin) {
-        linkToLogin.addEventListener('click', function(e) {
-          e.preventDefault();
-          regPanel.classList.add('hidden');
-          loginPanel.classList.remove('hidden');
-        });
-      }
 
       if(regRole) {
         regRole.addEventListener('change', function() {
@@ -380,4 +370,15 @@
       }
 
       if (accInfo.deviceId !== currentDeviceId) {
-        alert("🔒 حظر أمني:\nهذا الحساب مقترن بجهاز هاتف
+        alert("🔒 حظر أمني:\nهذا الحساب مقترن بجهاز هاتف آخر ولا يمكن فتحه إلا من الجهاز الأساسي المسجل به!");
+        return;
+      }
+
+      currentUser = accInfo;
+      userRole = accInfo.role;
+      setupDashboard();
+    }
+
+    function registerUser() {
+      const role = document.getElementById('reg-role').value;
+      const name = do
