@@ -58,9 +58,9 @@
 
       <div class="text-center pt-3 border-t mt-4 space-y-2">
         <p class="text-xs text-slate-600">ليس لديك حساب؟ 
-          <button onclick="toggleRegisterMode(true)" class="text-[#0088cc] font-bold hover:underline">اضغط هنا لإنشاء حسابك الجديد</button>
+          <button type="button" onclick="toggleRegisterMode(true)" class="text-[#0088cc] font-bold hover:underline">اضغط هنا لإنشاء حسابك الجديد</button>
         </p>
-        <button onclick="resetDeviceData()" class="text-[11px] text-red-500 hover:underline block mx-auto">🗑️ مسح الذاكرة المسجلة (إعادة ضبط)</button>
+        <button type="button" onclick="resetDeviceData()" class="text-[11px] text-red-500 hover:underline block mx-auto">🗑️ مسح الذاكرة المسجلة (إعادة ضبط)</button>
       </div>
     </div>
   </section>
@@ -124,13 +124,13 @@
         <input type="password" id="reg-password" placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0088cc] text-xs bg-slate-50/50">
       </div>
 
-      <button onclick="registerUser()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition text-xs">
+      <button type="button" onclick="registerUser()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold shadow-lg transition text-xs">
         إنشاء الحساب وقفل الجهاز 🔒
       </button>
 
       <div class="text-center pt-2 border-t mt-3">
         <p class="text-xs text-slate-600">لديك حساب بالفعل؟ 
-          <button onclick="toggleRegisterMode(false)" class="text-[#0088cc] font-bold hover:underline">تسجيل الدخول</button>
+          <button type="button" onclick="toggleRegisterMode(false)" class="text-[#0088cc] font-bold hover:underline">تسجيل الدخول</button>
         </p>
       </div>
     </div>
@@ -263,6 +263,18 @@
   </div>
 
   <script>
+    function toggleRegisterMode(showRegister) {
+      const loginPanel = document.getElementById('panel-login');
+      const regPanel = document.getElementById('panel-register');
+      if (showRegister) {
+        loginPanel.classList.add('hidden');
+        regPanel.classList.remove('hidden');
+      } else {
+        regPanel.classList.add('hidden');
+        loginPanel.classList.remove('hidden');
+      }
+    }
+
     function getDeviceId() {
       let devId = localStorage.getItem('egi_device_fingerprint');
       if (!devId) {
@@ -285,16 +297,6 @@
         localStorage.clear();
         alert("تم مسح الذاكرة بنجاح. أعد تحميل الصفحة.");
         location.reload();
-      }
-    }
-
-    function toggleRegisterMode(showRegister) {
-      if (showRegister) {
-        document.getElementById('panel-login').classList.add('hidden');
-        document.getElementById('panel-register').classList.remove('hidden');
-      } else {
-        document.getElementById('panel-register').classList.add('hidden');
-        document.getElementById('panel-login').classList.remove('hidden');
       }
     }
 
@@ -394,5 +396,4 @@
 
       if (userRole === 'doctor') {
         document.getElementById('user-display').innerText = currentUser.name + " (" + currentUser.subject + ")";
-        document.getElementById('doc-fullname').innerText = "د. " + currentUser.name;
-        document.getElementById('doc-sub
+        document.getElementById('doc-fullname').innerText = "
